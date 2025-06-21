@@ -1,0 +1,118 @@
+{
+	"extension": {
+		"name": "Roo Code",
+		"description": "Ein komplettes Entwicklerteam mit KI in deinem Editor."
+	},
+	"number_format": {
+		"thousand_suffix": "k",
+		"million_suffix": "m",
+		"billion_suffix": "b"
+	},
+	"welcome": "Willkommen, {{name}}! Du hast {{count}} Benachrichtigungen.",
+	"items": {
+		"zero": "Keine Elemente",
+		"one": "Ein Element",
+		"other": "{{count}} Elemente"
+	},
+	"confirmation": {
+		"reset_state": "Möchtest du wirklich alle Zustände und geheimen Speicher in der Erweiterung zurücksetzen? Dies kann nicht rückgängig gemacht werden.",
+		"delete_config_profile": "Möchtest du dieses Konfigurationsprofil wirklich löschen?",
+		"delete_custom_mode": "Möchtest du diesen benutzerdefinierten Modus wirklich löschen?",
+		"delete_message": "Was möchtest du löschen?",
+		"just_this_message": "Nur diese Nachricht",
+		"this_and_subsequent": "Diese und alle nachfolgenden Nachrichten"
+	},
+	"errors": {
+		"invalid_data_uri": "Ungültiges Daten-URI-Format",
+		"error_copying_image": "Fehler beim Kopieren des Bildes: {{errorMessage}}",
+		"error_saving_image": "Fehler beim Speichern des Bildes: {{errorMessage}}",
+		"error_opening_image": "Fehler beim Öffnen des Bildes: {{error}}",
+		"could_not_open_file": "Datei konnte nicht geöffnet werden: {{errorMessage}}",
+		"could_not_open_file_generic": "Datei konnte nicht geöffnet werden!",
+		"checkpoint_timeout": "Zeitüberschreitung beim Versuch, den Checkpoint wiederherzustellen.",
+		"checkpoint_failed": "Fehler beim Wiederherstellen des Checkpoints.",
+		"no_workspace": "Bitte öffne zuerst einen Projektordner",
+		"update_support_prompt": "Fehler beim Aktualisieren der Support-Nachricht",
+		"reset_support_prompt": "Fehler beim Zurücksetzen der Support-Nachricht",
+		"enhance_prompt": "Fehler beim Verbessern der Nachricht",
+		"get_system_prompt": "Fehler beim Abrufen der Systemnachricht",
+		"search_commits": "Fehler beim Suchen von Commits",
+		"save_api_config": "Fehler beim Speichern der API-Konfiguration",
+		"create_api_config": "Fehler beim Erstellen der API-Konfiguration",
+		"rename_api_config": "Fehler beim Umbenennen der API-Konfiguration",
+		"load_api_config": "Fehler beim Laden der API-Konfiguration",
+		"delete_api_config": "Fehler beim Löschen der API-Konfiguration",
+		"list_api_config": "Fehler beim Abrufen der API-Konfigurationsliste",
+		"update_server_timeout": "Fehler beim Aktualisieren des Server-Timeouts",
+		"hmr_not_running": "Der lokale Entwicklungsserver läuft nicht, HMR wird nicht funktionieren. Bitte führen Sie 'npm run dev' vor dem Start der Erweiterung aus, um HMR zu aktivieren.",
+		"retrieve_current_mode": "Fehler beim Abrufen des aktuellen Modus aus dem Zustand.",
+		"failed_delete_repo": "Fehler beim Löschen des zugehörigen Shadow-Repositorys oder -Zweigs: {{error}}",
+		"failed_remove_directory": "Fehler beim Entfernen des Aufgabenverzeichnisses: {{error}}",
+		"custom_storage_path_unusable": "Benutzerdefinierter Speicherpfad \"{{path}}\" ist nicht verwendbar, Standardpfad wird verwendet",
+		"cannot_access_path": "Zugriff auf Pfad {{path}} nicht möglich: {{error}}",
+		"settings_import_failed": "Fehler beim Importieren der Einstellungen: {{error}}.",
+		"mistake_limit_guidance": "Dies kann auf einen Fehler im Denkprozess des Modells oder die Unfähigkeit hinweisen, ein Tool richtig zu verwenden, was durch Benutzerführung behoben werden kann (z.B. \"Versuche, die Aufgabe in kleinere Schritte zu unterteilen\").",
+		"violated_organization_allowlist": "Aufgabe konnte nicht ausgeführt werden: Das aktuelle Profil verstößt gegen die Einstellungen deiner Organisation",
+		"condense_failed": "Fehler beim Verdichten des Kontexts",
+		"condense_not_enough_messages": "Nicht genügend Nachrichten zum Verdichten des Kontexts",
+		"condensed_recently": "Kontext wurde kürzlich verdichtet; dieser Versuch wird übersprungen",
+		"condense_handler_invalid": "API-Handler zum Verdichten des Kontexts ist ungültig",
+		"condense_context_grew": "Kontextgröße ist während der Verdichtung gewachsen; dieser Versuch wird übersprungen",
+		"share_task_failed": "Teilen der Aufgabe fehlgeschlagen. Bitte versuche es erneut.",
+		"share_no_active_task": "Keine aktive Aufgabe zum Teilen",
+		"share_auth_required": "Authentifizierung erforderlich. Bitte melde dich an, um Aufgaben zu teilen.",
+		"share_not_enabled": "Aufgabenfreigabe ist für diese Organisation nicht aktiviert.",
+		"share_task_not_found": "Aufgabe nicht gefunden oder Zugriff verweigert."
+	},
+	"warnings": {
+		"no_terminal_content": "Kein Terminal-Inhalt ausgewählt",
+		"missing_task_files": "Die Dateien dieser Aufgabe fehlen. Möchtest du sie aus der Aufgabenliste entfernen?"
+	},
+	"info": {
+		"no_changes": "Keine Änderungen gefunden.",
+		"clipboard_copy": "Systemnachricht erfolgreich in die Zwischenablage kopiert",
+		"history_cleanup": "{{count}} Aufgabe(n) mit fehlenden Dateien aus dem Verlauf bereinigt.",
+		"custom_storage_path_set": "Benutzerdefinierter Speicherpfad festgelegt: {{path}}",
+		"default_storage_path": "Auf Standardspeicherpfad zurückgesetzt",
+		"settings_imported": "Einstellungen erfolgreich importiert.",
+		"share_link_copied": "Share-Link in die Zwischenablage kopiert",
+		"image_copied_to_clipboard": "Bild-Daten-URI in die Zwischenablage kopiert",
+		"image_saved": "Bild gespeichert unter {{path}}",
+		"organization_share_link_copied": "Organisations-Freigabelink in die Zwischenablage kopiert!",
+		"public_share_link_copied": "Öffentlicher Freigabelink in die Zwischenablage kopiert!"
+	},
+	"answers": {
+		"yes": "Ja",
+		"no": "Nein",
+		"cancel": "Abbrechen",
+		"remove": "Entfernen",
+		"keep": "Behalten"
+	},
+	"tasks": {
+		"canceled": "Aufgabenfehler: Die Aufgabe wurde vom Benutzer gestoppt und abgebrochen.",
+		"deleted": "Aufgabenfehler: Die Aufgabe wurde vom Benutzer gestoppt und gelöscht."
+	},
+	"storage": {
+		"prompt_custom_path": "Gib den benutzerdefinierten Speicherpfad für den Gesprächsverlauf ein, leer lassen für Standardspeicherort",
+		"path_placeholder": "D:\\RooCodeStorage",
+		"enter_absolute_path": "Bitte gib einen absoluten Pfad ein (z.B. D:\\RooCodeStorage oder /home/user/storage)",
+		"enter_valid_path": "Bitte gib einen gültigen Pfad ein"
+	},
+	"input": {
+		"task_prompt": "Was soll Roo tun?",
+		"task_placeholder": "Gib deine Aufgabe hier ein"
+	},
+	"settings": {
+		"providers": {
+			"groqApiKey": "Groq API-Schlüssel",
+			"getGroqApiKey": "Groq API-Schlüssel erhalten"
+		}
+	},
+	"mdm": {
+		"errors": {
+			"cloud_auth_required": "Deine Organisation erfordert eine Roo Code Cloud-Authentifizierung. Bitte melde dich an, um fortzufahren.",
+			"organization_mismatch": "Du musst mit dem Roo Code Cloud-Konto deiner Organisation authentifiziert sein.",
+			"verification_failed": "Die Organisationsauthentifizierung konnte nicht verifiziert werden."
+		}
+	}
+}

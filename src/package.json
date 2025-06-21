@@ -416,7 +416,7 @@
 		"sanitize-filename": "^1.6.3",
 		"say": "^0.16.0",
 		"serialize-error": "^11.0.3",
-		"simple-git": "^3.27.0",
+		"simple-git": "^3.28.0",
 		"sound-play": "^1.1.0",
 		"string-similarity": "^4.0.4",
 		"strip-ansi": "^7.1.0",

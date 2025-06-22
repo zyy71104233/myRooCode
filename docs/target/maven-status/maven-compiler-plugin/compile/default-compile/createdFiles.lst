@@ -1,0 +1,9 @@
+com\certmgr\CertificateManagementApplication.class
+com\certmgr\domain\infrastructure\persistence\mybatis\MyBatisDomainRepository.class
+com\certmgr\domain\domain\model\DomainName.class
+com\certmgr\certificate\infrastructure\persistence\mybatis\MyBatisCertificateRepository.class
+com\certmgr\certificate\domain\repository\CertificateRepository.class
+com\certmgr\domain\infrastructure\persistence\mybatis\DomainMapper.class
+com\certmgr\certificate\infrastructure\persistence\mybatis\CertificateMapper.class
+com\certmgr\domain\domain\repository\DomainRepository.class
+com\certmgr\certificate\domain\model\CertificateContent.class

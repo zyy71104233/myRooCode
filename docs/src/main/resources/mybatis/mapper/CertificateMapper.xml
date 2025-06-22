@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.certmgr.certificate.infrastructure.persistence.mybatis.CertificateMapper">
+    <resultMap id="certificateResultMap" type="com.certmgr.certificate.domain.model.CertificateContent">
+        <result property="publicKey" column="public_key"/>
+        <result property="privateKey" column="private_key"/>
+        <result property="certificate" column="certificate"/>
+    </resultMap>
+
+    <select id="findByPublicKey" resultMap="certificateResultMap">
+        SELECT * FROM certificates WHERE public_key = #{publicKey}
+    </select>
+
+    <insert id="save" parameterType="com.certmgr.certificate.domain.model.CertificateContent">
+        INSERT INTO certificates (public_key, private_key, certificate)
+        VALUES (#{certificate.publicKey}, #{certificate.privateKey}, #{certificate.certificate})
+    </insert>
+
+    <delete id="deleteByPublicKey">
+        DELETE FROM certificates WHERE public_key = #{publicKey}
+    </delete>
+</mapper>

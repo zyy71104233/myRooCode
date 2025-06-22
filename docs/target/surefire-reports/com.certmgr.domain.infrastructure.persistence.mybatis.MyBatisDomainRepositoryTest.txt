@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: com.certmgr.domain.infrastructure.persistence.mybatis.MyBatisDomainRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.647 s <<< FAILURE! - in com.certmgr.domain.infrastructure.persistence.mybatis.MyBatisDomainRepositoryTest
+shouldDeleteDomain  Time elapsed: 0.19 s  <<< ERROR!
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.certmgr.domain.infrastructure.persistence.mybatis.DomainMapper.save
+	at com.certmgr.domain.infrastructure.persistence.mybatis.MyBatisDomainRepositoryTest.shouldDeleteDomain(MyBatisDomainRepositoryTest.java:42)
+
+shouldSaveAndFindDomain  Time elapsed: 0.005 s  <<< ERROR!
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.certmgr.domain.infrastructure.persistence.mybatis.DomainMapper.save
+	at com.certmgr.domain.infrastructure.persistence.mybatis.MyBatisDomainRepositoryTest.shouldSaveAndFindDomain(MyBatisDomainRepositoryTest.java:31)
+

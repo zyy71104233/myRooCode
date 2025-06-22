@@ -1,0 +1,6 @@
+com\certmgr\domain\domain\model\DomainNameTest.class
+com\certmgr\certificate\domain\repository\CertificateRepositoryTest.class
+com\certmgr\certificate\domain\model\CertificateContentTest.class
+com\certmgr\domain\domain\repository\DomainRepositoryTest.class
+com\certmgr\certificate\infrastructure\persistence\mybatis\MyBatisCertificateRepositoryTest.class
+com\certmgr\domain\infrastructure\persistence\mybatis\MyBatisDomainRepositoryTest.class

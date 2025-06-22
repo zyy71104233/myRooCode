@@ -30,6 +30,8 @@ import { getDddVerifyLayerDescription } from "../../tools/ddd/ddd-verify-layer"
 import { getDddLayerCompleteDescription } from "../../tools/ddd/ddd-layer-complete"
 import { getDddAwaitConfirmationDescription } from "../../tools/ddd/ddd-await-confirmation"
 import { getVerifyCompilationDescription } from "../../tools/verification/verify-compilation"
+import { getDddValidateBestPracticesDescription } from "../../tools/ddd/ddd-validate-best-practices"
+import { getDddWorkflowStatusDescription } from "../../tools/ddd/ddd-workflow-status"
 
 // Map of tool names to their description functions
 const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined> = {
@@ -65,6 +67,8 @@ const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined>
 	run_unit_tests: () => "Run unit tests (placeholder implementation)",
 	run_integration_tests: () => "Run integration tests (placeholder implementation)",
 	validate_layer_architecture: () => "Validate layer architecture compliance (placeholder implementation)",
+	ddd_validate_best_practices: () => getDddValidateBestPracticesDescription(),
+	ddd_workflow_status: () => getDddWorkflowStatusDescription(),
 }
 
 export function getToolDescriptionsForMode(

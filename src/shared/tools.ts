@@ -199,6 +199,8 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	run_unit_tests: "run unit tests",
 	run_integration_tests: "run integration tests",
 	validate_layer_architecture: "validate layer architecture",
+	ddd_validate_best_practices: "validate DDD best practices",
+	ddd_workflow_status: "show DDD workflow status",
 } as const
 
 // Define available tool groups.

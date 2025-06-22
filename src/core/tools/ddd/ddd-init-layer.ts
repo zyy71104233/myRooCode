@@ -1,5 +1,8 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 import { ClineAsk, ToolName } from "@roo-code/types"
+import { ProjectConfigGenerator } from "./ProjectConfigGenerator"
+import * as path from "path"
+import * as fs from "fs"
 
 export interface DddInitLayerParams {
 	layer: "config" | "domain" | "infrastructure" | "application" | "interface"
@@ -12,6 +15,7 @@ export type DddInitLayerResult = {
 	status: "initialized" | "already_active" | "error"
 	message: string
 	nextSteps?: string[]
+	filesGenerated?: string[]
 }
 
 export async function executeDddInitLayer(
@@ -35,18 +39,42 @@ export async function executeDddInitLayer(
 			status: "initialized",
 			message: `Initializing ${layer} layer development`,
 			nextSteps: [],
+			filesGenerated: [],
 		}
 
-		// Define layer-specific next steps
+		// Define layer-specific next steps and actions
 		switch (layer) {
 			case "config":
 				result.nextSteps = [
-					"Create project configuration files (pom.xml/build.gradle)",
+					"✅ Generate project configuration files using standard tech stack",
 					"Set up database schema files",
 					"Configure dependencies and build tools",
 					"Verify compilation and database connectivity",
 				]
+
+				// 自动生成符合技术栈约定的pom.xml
+				const configGenerator = new ProjectConfigGenerator()
+				const projectInfo = {
+					groupId: "com.certmgr",
+					artifactId: "certificate-management",
+					version: "1.0-SNAPSHOT",
+					name: "Certificate Management System",
+					description: "DDD架构的证书管理系统",
+				}
+
+				try {
+					const configResult = await configGenerator.generateStandardConfig(cwd, projectInfo)
+					if (configResult.success) {
+						result.filesGenerated!.push("pom.xml")
+						result.message += `\n✅ Generated pom.xml with standard tech stack (Java 8, Spring Boot 2.7.18, MyBatis)`
+					} else {
+						result.message += `\n⚠️ Failed to generate pom.xml: ${configResult.errors.join(", ")}`
+					}
+				} catch (error) {
+					result.message += `\n⚠️ Error generating config: ${error instanceof Error ? error.message : String(error)}`
+				}
 				break
+
 			case "domain":
 				result.nextSteps = [
 					"Create domain entities and value objects",
@@ -90,12 +118,23 @@ export async function executeDddInitLayer(
 		}
 
 		// Format the response
-		const responseText = `Layer ${layer} initialized successfully.\n\nNext steps:\n${result.nextSteps.map((step) => `- ${step}`).join("\n")}\n\nRemember to:\n- Follow DDD principles and patterns\n- Create comprehensive tests for this layer\n- Ensure proper separation of concerns\n- Verify implementation before proceeding to next layer`
+		let responseText = `🎯 Layer ${layer} initialized successfully.\n\n`
+
+		if (result.filesGenerated && result.filesGenerated.length > 0) {
+			responseText += `📁 Generated files:\n${result.filesGenerated.map((file) => `- ${file}`).join("\n")}\n\n`
+		}
+
+		responseText += `📋 Next steps:\n${result.nextSteps!.map((step) => `- ${step}`).join("\n")}\n\n`
+		responseText += `💡 Remember to:\n- Follow DDD principles and patterns\n- Create comprehensive tests for this layer\n- Ensure proper separation of concerns\n- Verify implementation before proceeding to next layer`
+
+		if (result.message.includes("✅") || result.message.includes("⚠️")) {
+			responseText += `\n\n${result.message}`
+		}
 
 		updateCallback("ddd_init_layer", responseText)
 		return responseText
 	} catch (error) {
-		const errorMessage = `Error initializing DDD layer: ${error instanceof Error ? error.message : String(error)}`
+		const errorMessage = `❌ Error initializing DDD layer: ${error instanceof Error ? error.message : String(error)}`
 		updateCallback("ddd_init_layer", errorMessage)
 		return errorMessage
 	}

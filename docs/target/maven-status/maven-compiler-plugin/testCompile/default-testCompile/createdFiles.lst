@@ -1,6 +1,9 @@
-com\certmgr\domain\domain\model\DomainNameTest.class
-com\certmgr\certificate\domain\repository\CertificateRepositoryTest.class
-com\certmgr\certificate\domain\model\CertificateContentTest.class
-com\certmgr\domain\domain\repository\DomainRepositoryTest.class
-com\certmgr\certificate\infrastructure\persistence\mybatis\MyBatisCertificateRepositoryTest.class
-com\certmgr\domain\infrastructure\persistence\mybatis\MyBatisDomainRepositoryTest.class
+com\example\certificate\domain\event\CertificateRevokedEventTest.class
+com\example\certificate\infrastructure\persistence\mybatis\DeploymentRepositoryImplTest.class
+com\example\certificate\domain\model\CertificateContentTest.class
+com\example\certificate\domain\service\CertificateManagementServiceTest.class
+com\example\certificate\domain\event\CertificateIssuedEventTest.class
+com\example\certificate\domain\model\CertificateTest.class
+com\example\certificate\domain\model\DeploymentTest.class
+com\example\certificate\infrastructure\persistence\mybatis\CertificateRepositoryImplTest.class
+com\example\certificate\TestConfig.class

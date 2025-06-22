@@ -1,0 +1,7 @@
+{
+	"completedLayers": ["config", "domain", "infrastructure"],
+	"layerInProgress": true,
+	"lastAction": "layer_started_application",
+	"timestamp": 1750585696855,
+	"currentLayer": "application"
+}

@@ -8,6 +8,11 @@ import { executeDddVerifyLayer } from "./ddd/ddd-verify-layer"
 import { executeDddLayerComplete } from "./ddd/ddd-layer-complete"
 import { executeDddAwaitConfirmation } from "./ddd/ddd-await-confirmation"
 import { executeVerifyCompilation } from "./verification/verify-compilation"
+import { executeDddValidateBestPractices } from "./ddd/ddd-validate-best-practices"
+import { executeDddWorkflowStatus } from "./ddd/ddd-workflow-status"
+
+// Import DDD workflow manager
+import { DddWorkflowManager, DddLayer } from "./ddd/DddWorkflowManager"
 
 /**
  * Main DDD tool executor that handles all DDD-related tools
@@ -30,6 +35,9 @@ export async function executeDddTool(
 		// Reset mistake count for successful validation
 		cline.consecutiveMistakeCount = 0
 
+		// Initialize DDD workflow manager
+		const workflowManager = new DddWorkflowManager(cline.cwd)
+
 		// Create a generic update callback for tool results
 		const updateCallback = (toolName: string, content: string) => {
 			pushToolResult(content)
@@ -42,9 +50,11 @@ export async function executeDddTool(
 		// Route to the appropriate DDD tool
 		switch (block.name) {
 			case "ddd_init_layer":
+				const initLayer = workflowManager.validateLayer((block.params as any).layer || "")
+				workflowManager.setCurrentLayer(initLayer)
 				await executeDddInitLayer(
 					{
-						layer: ((block.params as any).layer || "") as any,
+						layer: initLayer,
 						description: (block.params as any).description || "",
 						requirements: (block.params as any).requirements || [],
 					},
@@ -55,9 +65,10 @@ export async function executeDddTool(
 				break
 
 			case "ddd_verify_layer":
+				const verifyLayer = workflowManager.validateLayer((block.params as any).layer || "")
 				await executeDddVerifyLayer(
 					{
-						layer: ((block.params as any).layer || "") as any,
+						layer: verifyLayer,
 						testCommand: (block.params as any).testCommand || "",
 						validationChecks: ((block.params as any).validationChecks || "")
 							.split(",")
@@ -70,9 +81,16 @@ export async function executeDddTool(
 				break
 
 			case "ddd_layer_complete":
+				const completeLayer = workflowManager.validateLayer((block.params as any).layer || "")
+				workflowManager.markLayerComplete(completeLayer)
+
+				// 添加工作流状态报告
+				const statusReport = workflowManager.getCompletionReport()
+				updateCallback("ddd_workflow_status", statusReport)
+
 				await executeDddLayerComplete(
 					{
-						layer: ((block.params as any).layer || "") as any,
+						layer: completeLayer,
 						summary: (block.params as any).summary || "",
 						filesCreated: ((block.params as any).filesCreated || "")
 							.split(",")
@@ -80,7 +98,7 @@ export async function executeDddTool(
 						testsCreated: ((block.params as any).testsCreated || "")
 							.split(",")
 							.filter((t: string) => t.trim()),
-						nextLayer: (block.params as any).nextLayer || "",
+						nextLayer: workflowManager.getNextLayer(completeLayer) || "",
 					},
 					cline.cwd,
 					askCallback,
@@ -89,12 +107,13 @@ export async function executeDddTool(
 				break
 
 			case "ddd_await_confirmation":
+				const confirmLayer = workflowManager.validateLayer((block.params as any).layer || "")
 				await executeDddAwaitConfirmation(
 					{
-						layer: ((block.params as any).layer || "") as any,
+						layer: confirmLayer,
 						completedWork: (block.params as any).completedWork || "",
 						testResults: (block.params as any).testResults || "",
-						nextLayer: (block.params as any).nextLayer || "",
+						nextLayer: workflowManager.getNextLayer(confirmLayer) || "",
 					},
 					cline.cwd,
 					askCallback,
@@ -141,6 +160,25 @@ export async function executeDddTool(
 				pushToolResult(formatResponse.toolResult("Layer architecture validation not yet implemented."))
 				break
 
+			case "ddd_validate_best_practices":
+				await executeDddValidateBestPractices(
+					{
+						projectPath: (block.params as any).projectPath || cline.cwd,
+						checkTypes: ((block.params as any).checkTypes || "maven,database,repository,tests")
+							.split(",")
+							.filter((t: string) => t.trim()),
+						autoFix: (block.params as any).autoFix === "true" || (block.params as any).autoFix === true,
+					},
+					cline.cwd,
+					askCallback,
+					updateCallback,
+				)
+				break
+
+			case "ddd_workflow_status":
+				await executeDddWorkflowStatus({}, cline.cwd, askCallback, updateCallback)
+				break
+
 			default:
 				cline.consecutiveMistakeCount++
 				cline.recordToolError(block.name)
@@ -168,6 +206,8 @@ export function isDddTool(toolName: string): boolean {
 		"run_unit_tests",
 		"run_integration_tests",
 		"validate_layer_architecture",
+		"ddd_validate_best_practices",
+		"ddd_workflow_status",
 	]
 	return dddTools.includes(toolName)
 }

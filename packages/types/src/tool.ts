@@ -44,6 +44,8 @@ export const toolNames = [
 	"run_unit_tests",
 	"run_integration_tests",
 	"validate_layer_architecture",
+	"ddd_validate_best_practices",
+	"ddd_workflow_status",
 ] as const
 
 export const toolNamesSchema = z.enum(toolNames)

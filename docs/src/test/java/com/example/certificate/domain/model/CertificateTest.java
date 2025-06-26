@@ -1,128 +1,36 @@
 package com.example.certificate.domain.model;
 
-import com.example.certificate.domain.event.CertificateIssuedEvent;
-import com.example.certificate.domain.event.CertificateRevokedEvent;
-import com.example.certificate.domain.event.DomainEvent;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.junit.jupiter.api.Assertions.*;
 class CertificateTest {
-    private static final String VALID_DOMAIN = "example.com";
-    private static final LocalDateTime FUTURE_DATE = LocalDateTime.now().plusDays(30);
-    private static final CertificateContent VALID_CONTENT = new CertificateContent(
-        "-----BEGIN PUBLIC KEY-----...",
-        "-----BEGIN PRIVATE KEY-----...",
-        "-----BEGIN CERTIFICATE-----...",
-        "PEM"
-    );
-
+    
     @Test
-    void shouldCreateCertificateWithValidParameters() {
+    void shouldCreateValidCertificate() {
+        CertificateType type = new CertificateType(1L, "Professional", "Professional certification", 365);
         Certificate certificate = new Certificate(
-            CertificateId.generate(),
-            VALID_DOMAIN,
-            VALID_CONTENT,
-            FUTURE_DATE
+            1L, "CERT-001", type, "Java Developer",
+            "Certified Java Developer", "Holder Name", 1,
+            LocalDateTime.now(), LocalDateTime.now().plusDays(365)
         );
 
-        assertNotNull(certificate);
-        assertEquals(VALID_DOMAIN, certificate.getDomainName());
-        assertEquals(CertificateStatus.ACTIVE, certificate.getStatus());
-        assertFalse(certificate.isExpired());
+        assertThat(certificate.getId()).isEqualTo(1L);
+        assertThat(certificate.getCertificateNumber()).isEqualTo("CERT-001");
+        assertThat(certificate.getType().getTypeName()).isEqualTo("Professional");
+        assertThat(certificate.getStatus()).isEqualTo(1);
+        assertThat(certificate.getExpiryDate()).isAfter(LocalDateTime.now());
     }
 
     @Test
-    void shouldThrowWhenDomainNameEmpty() {
-        assertThrows(IllegalArgumentException.class, () ->
-            new Certificate(
-                CertificateId.generate(),
-                "",
-                VALID_CONTENT,
-                FUTURE_DATE
-            )
-        );
-    }
-
-    @Test
-    void shouldThrowWhenExpirationDatePast() {
-        assertThrows(IllegalArgumentException.class, () ->
-            new Certificate(
-                CertificateId.generate(),
-                VALID_DOMAIN,
-                VALID_CONTENT,
-                LocalDateTime.now().minusDays(1)
-            )
-        );
-    }
-
-    @Test
-    void shouldEmitIssuedEventWhenCreated() {
+    void shouldDetectExpiredCertificate() {
+        CertificateType type = new CertificateType(1L, "Professional", null, 365);
         Certificate certificate = new Certificate(
-            CertificateId.generate(),
-            "example.com",
-            VALID_CONTENT,
-            LocalDateTime.now().plusDays(90)
+            1L, "CERT-001", type, "Java Developer",
+            "Certified Java Developer", "Holder Name", 1,
+            LocalDateTime.now().minusDays(366), LocalDateTime.now().minusDays(1)
         );
 
-        List<DomainEvent> events = certificate.getDomainEvents();
-        assertEquals(1, events.size());
-        assertTrue(events.get(0) instanceof CertificateIssuedEvent);
-    }
-
-    @Test
-    void shouldEmitRevokedEventWhenRevoked() {
-        Certificate certificate = new Certificate(
-            CertificateId.generate(),
-            "example.com",
-            VALID_CONTENT,
-            LocalDateTime.now().plusDays(90)
-        );
-        certificate.clearDomainEvents();
-
-        Certificate revoked = certificate.revoke();
-        List<DomainEvent> events = revoked.getDomainEvents();
-        
-        assertEquals(1, events.size());
-        assertTrue(events.get(0) instanceof CertificateRevokedEvent);
-    }
-
-    @Test
-    void shouldClearEventsAfterRetrieval() {
-        Certificate certificate = new Certificate(
-            CertificateId.generate(),
-            "example.com",
-            VALID_CONTENT,
-            LocalDateTime.now().plusDays(90)
-        );
-        
-        assertFalse(certificate.getDomainEvents().isEmpty());
-        assertTrue(certificate.getDomainEvents().isEmpty());
-    }
-
-    @Test
-    void shouldRevokeActiveCertificate() {
-        Certificate certificate = new Certificate(
-            CertificateId.generate(),
-            VALID_DOMAIN,
-            VALID_CONTENT,
-            FUTURE_DATE
-        );
-
-        Certificate revoked = certificate.revoke();
-        assertEquals(CertificateStatus.REVOKED, revoked.getStatus());
-    }
-
-    @Test
-    void shouldThrowWhenRevokingRevokedCertificate() {
-        Certificate certificate = new Certificate(
-            CertificateId.generate(),
-            VALID_DOMAIN,
-            VALID_CONTENT,
-            FUTURE_DATE
-        ).revoke();
-
-        assertThrows(IllegalStateException.class, certificate::revoke);
+        assertThat(certificate.isExpired()).isTrue();
     }
 }

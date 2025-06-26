@@ -50,7 +50,10 @@ export async function executeDddTool(
 		// Route to the appropriate DDD tool
 		switch (block.name) {
 			case "ddd_init_layer":
-				const initLayer = workflowManager.validateLayer((block.params as any).layer || "")
+				// 如果没有提供layer参数，直接使用当前推断的layer，不显示警告
+				const initLayer = (block.params as any).layer
+					? workflowManager.validateLayer((block.params as any).layer)
+					: workflowManager.getCurrentLayer()
 				workflowManager.setCurrentLayer(initLayer)
 				await executeDddInitLayer(
 					{
@@ -65,7 +68,10 @@ export async function executeDddTool(
 				break
 
 			case "ddd_verify_layer":
-				const verifyLayer = workflowManager.validateLayer((block.params as any).layer || "")
+				// 如果没有提供layer参数，直接使用当前推断的layer，不显示警告
+				const verifyLayer = (block.params as any).layer
+					? workflowManager.validateLayer((block.params as any).layer)
+					: workflowManager.getCurrentLayer()
 				await executeDddVerifyLayer(
 					{
 						layer: verifyLayer,
@@ -81,7 +87,10 @@ export async function executeDddTool(
 				break
 
 			case "ddd_layer_complete":
-				const completeLayer = workflowManager.validateLayer((block.params as any).layer || "")
+				// 如果没有提供layer参数，直接使用当前推断的layer，不显示警告
+				const completeLayer = (block.params as any).layer
+					? workflowManager.validateLayer((block.params as any).layer)
+					: workflowManager.getCurrentLayer()
 				workflowManager.markLayerComplete(completeLayer)
 
 				// 添加工作流状态报告
@@ -107,7 +116,10 @@ export async function executeDddTool(
 				break
 
 			case "ddd_await_confirmation":
-				const confirmLayer = workflowManager.validateLayer((block.params as any).layer || "")
+				// 如果没有提供layer参数，直接使用当前推断的layer，不显示警告
+				const confirmLayer = (block.params as any).layer
+					? workflowManager.validateLayer((block.params as any).layer)
+					: workflowManager.getCurrentLayer()
 				await executeDddAwaitConfirmation(
 					{
 						layer: confirmLayer,

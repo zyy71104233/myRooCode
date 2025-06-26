@@ -1,7 +1,7 @@
 {
-	"completedLayers": ["config", "domain", "infrastructure"],
-	"layerInProgress": true,
-	"lastAction": "layer_started_application",
-	"timestamp": 1750585696855,
-	"currentLayer": "application"
+	"completedLayers": ["config", "domain", "infrastructure", "application", "interface"],
+	"layerInProgress": false,
+	"lastAction": "layer_completed_interface",
+	"timestamp": 1750672754462,
+	"currentLayer": "interface"
 }

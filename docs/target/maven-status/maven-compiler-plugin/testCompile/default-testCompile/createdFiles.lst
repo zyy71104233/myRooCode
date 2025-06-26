@@ -1,9 +1,5 @@
-com\example\certificate\domain\event\CertificateRevokedEventTest.class
-com\example\certificate\infrastructure\persistence\mybatis\DeploymentRepositoryImplTest.class
-com\example\certificate\domain\model\CertificateContentTest.class
-com\example\certificate\domain\service\CertificateManagementServiceTest.class
-com\example\certificate\domain\event\CertificateIssuedEventTest.class
+com\example\certificate\infrastructure\persistence\repository\UserRepositoryImplTest.class
+com\example\certificate\application\service\CertificateApplicationServiceTest.class
+com\example\certificate\interfaces\rest\CertificateControllerTest.class
 com\example\certificate\domain\model\CertificateTest.class
-com\example\certificate\domain\model\DeploymentTest.class
-com\example\certificate\infrastructure\persistence\mybatis\CertificateRepositoryImplTest.class
-com\example\certificate\TestConfig.class
+com\example\certificate\infrastructure\persistence\DatabaseConnectionTest.class

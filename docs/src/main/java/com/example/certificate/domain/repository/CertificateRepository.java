@@ -1,12 +1,13 @@
 package com.example.certificate.domain.repository;
 
 import com.example.certificate.domain.model.Certificate;
-import com.example.certificate.domain.model.CertificateId;
+import java.util.List;
 import java.util.Optional;
 
 public interface CertificateRepository {
-    Optional<Certificate> findById(CertificateId id);
+    Optional<Certificate> findById(Long id);
     Certificate save(Certificate certificate);
-    void delete(CertificateId id);
-    boolean exists(CertificateId id);
+    Optional<Certificate> findByCertificateNumber(String certificateNumber);
+    boolean existsByCertificateNumber(String certificateNumber);
+    List<Certificate> findAll(int offset, int limit);
 }

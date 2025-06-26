@@ -245,7 +245,10 @@ export class DddWorkflowManager {
 
 		// 如果层级无效或为空，使用当前推断的层级
 		const inferredLayer = this.getCurrentLayer()
-		console.log(`Invalid layer parameter: "${layer}", using inferred layer: ${inferredLayer}`)
+		// 只在layer不为空但无效时显示警告，为空时静默处理
+		if (layer && layer.trim() !== "") {
+			console.log(`Invalid layer parameter: "${layer}", using inferred layer: ${inferredLayer}`)
+		}
 		return inferredLayer
 	}
 

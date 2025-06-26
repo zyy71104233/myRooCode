@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface CertificateMapper {
     @Insert("INSERT INTO certificates(certificate_number, type_id, title, content, status, issue_date, expiry_date) " +
-            "VALUES(#{certificateNumber}, #{typeId}, #{title}, #{content}, #{status}, #{issueDate}, #{expiryDate})")
+            "VALUES(#{certificateNumber}, #{type.id}, #{title}, #{content}, #{status}, #{issueDate}, #{expiryDate})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Certificate certificate);
 

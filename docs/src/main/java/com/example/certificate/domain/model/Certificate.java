@@ -41,6 +41,8 @@ public class Certificate {
     }
 
     private static String generateCertificateNumber() {
-        return String.format("CERT-%03d", counter.getAndIncrement());
+        return String.format("CERT-%d-%03d",
+            System.currentTimeMillis() % 1000000,
+            counter.getAndIncrement());
     }
 }

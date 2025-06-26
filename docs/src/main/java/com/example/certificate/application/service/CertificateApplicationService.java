@@ -76,7 +76,11 @@ public class CertificateApplicationService implements CertificateService {
     }
 
     public CertificateDTO issueCertificateDTO(CertificateDTO certificateDTO) {
-        validateCertificateDTO(certificateDTO);
+        // 业务规则验证
+        if (certificateDTO.getExpiryDate().isBefore(certificateDTO.getIssueDate())) {
+            throw new IllegalArgumentException("过期日期不能早于签发日期");
+        }
+        
         Certificate certificate = new Certificate(
             certificateDTO.getCertificateNumber(),
             certificateDTO.getHolderName(),
@@ -95,14 +99,6 @@ public class CertificateApplicationService implements CertificateService {
         return convertToDTO(issuedCertificate);
     }
 
-    private void validateCertificateDTO(CertificateDTO certificateDTO) {
-        if (certificateDTO.getCertificateNumber() == null || certificateDTO.getCertificateNumber().isEmpty()) {
-            throw new IllegalArgumentException("证书编号不能为空");
-        }
-        if (certificateDTO.getExpiryDate().isBefore(certificateDTO.getIssueDate())) {
-            throw new IllegalArgumentException("过期日期不能早于签发日期");
-        }
-    }
 
     private Certificate convertToDomain(CertificateDTO dto) {
         Certificate certificate = new Certificate();
@@ -121,6 +117,11 @@ public class CertificateApplicationService implements CertificateService {
         dto.setIssueDate(certificate.getIssueDate());
         dto.setExpiryDate(certificate.getExpiryDate());
         dto.setStatus(certificate.getStatus());
+        dto.setTitle(certificate.getTitle());
+        dto.setContent(certificate.getContent());
+        if (certificate.getType() != null) {
+            dto.setType(certificate.getType().getName());
+        }
         return dto;
     }
 }

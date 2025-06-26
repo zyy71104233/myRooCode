@@ -16,5 +16,6 @@ C:\Users\zyy71\Downloads\AI_autoCode\ROOCODE\Roo-Code-3.21.2\docs\src\main\java\
 C:\Users\zyy71\Downloads\AI_autoCode\ROOCODE\Roo-Code-3.21.2\docs\src\main\java\com\example\certificate\application\dto\CertificateDTO.java
 C:\Users\zyy71\Downloads\AI_autoCode\ROOCODE\Roo-Code-3.21.2\docs\src\main\java\com\example\certificate\domain\model\Certificate.java
 C:\Users\zyy71\Downloads\AI_autoCode\ROOCODE\Roo-Code-3.21.2\docs\src\main\java\com\example\certificate\interfaces\rest\dto\CertificateDTO.java
+C:\Users\zyy71\Downloads\AI_autoCode\ROOCODE\Roo-Code-3.21.2\docs\src\main\java\com\example\certificate\interfaces\rest\GlobalExceptionHandler.java
 C:\Users\zyy71\Downloads\AI_autoCode\ROOCODE\Roo-Code-3.21.2\docs\src\main\java\com\example\certificate\infrastructure\persistence\repository\UserRepositoryImpl.java
 C:\Users\zyy71\Downloads\AI_autoCode\ROOCODE\Roo-Code-3.21.2\docs\src\main\java\com\example\certificate\CertificateManagementApplication.java

@@ -4,6 +4,7 @@ com\example\certificate\domain\service\CertificateQueryService.class
 com\example\certificate\infrastructure\persistence\mapper\CertificateMapper.class
 com\example\certificate\domain\model\IssuanceRecord.class
 com\example\certificate\infrastructure\persistence\mapper\UserMapper.class
+com\example\certificate\interfaces\rest\GlobalExceptionHandler.class
 com\example\certificate\infrastructure\persistence\repository\CertificateRepositoryImpl.class
 com\example\certificate\domain\repository\CertificateTypeRepository.class
 com\example\certificate\CertificateManagementApplication.class

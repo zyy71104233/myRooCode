@@ -1,13 +1,24 @@
 package com.example.certificate.application.dto;
 
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class CertificateDTO {
     private Long id;
+    
+    @NotBlank(message = "证书编号不能为空")
     private String certificateNumber;
+    
+    @NotBlank(message = "持有人姓名不能为空")
     private String holderName;
+    
+    @NotNull(message = "签发日期不能为空")
     private LocalDateTime issueDate;
+    
+    @NotNull(message = "过期日期不能为空")
     private LocalDateTime expiryDate;
+    
     private String type;
     private String title;
     private String content;

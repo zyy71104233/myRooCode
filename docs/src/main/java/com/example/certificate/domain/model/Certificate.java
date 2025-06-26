@@ -22,7 +22,7 @@ public class Certificate {
     private String holderName;
     private Integer status;
     private LocalDateTime issueDate;
-    private LocalDateTime expiryDate;
+    private LocalDateTime expiryDate; 
 
     public Certificate(String holderName, LocalDateTime issueDate, LocalDateTime expiryDate) {
         this(null, holderName, issueDate, expiryDate);
